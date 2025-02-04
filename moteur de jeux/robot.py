@@ -1,8 +1,8 @@
 class Robot:
     def __init__(self, grid):
         self.grid = grid
-        self.x = 0  # Position colonne
-        self.y = 0  # Position ligne
+        self.x = 0
+        self.y = 0
         self.obstacles = set()
 
     def move(self, dx, dy):

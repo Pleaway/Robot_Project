@@ -14,7 +14,6 @@ class GameWindow(QWidget):
         self.setWindowTitle("Jeu du Cube")
         self.setFixedSize(cols * cell_size, rows * cell_size)
 
-        # Ajout d'obstacles pour tester
         self.cube.add_obstacle(3, 3)
         self.cube.add_obstacle(5, 5)
 
