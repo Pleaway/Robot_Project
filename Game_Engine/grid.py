@@ -1,6 +1,5 @@
 from random import random, randint
 
-from fontTools.misc.plistlib import end_string
 
 
 class Grid:
