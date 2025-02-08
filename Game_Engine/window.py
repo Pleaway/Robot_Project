@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget
 from PyQt6.QtGui import QPainter, QColor, QBrush
 from PyQt6.QtCore import Qt
-from grid import Grid
-from agent import Agent
+from Game_Engine.grid import Grid
+from Game_Engine.agent import Agent
 import sys
 
 class Window(QWidget):

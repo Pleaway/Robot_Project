@@ -15,7 +15,7 @@ class Grid:
         for i in range(self.rows):
             for j in range(self.cols):
                 if random() < self.proba:
-                    self.grid[i][j] = -inf
+                    self.grid[i][j] = -(self.rows*self.cols + 1)
 
     def init_grid(self):
         self.init_obstacles()
@@ -29,7 +29,7 @@ class Grid:
         self.end = (end_x, end_y)
     
     def is_empty(self, i, j):
-        return not isinf(-self.grid[i][j])
+        return self.grid[i][j] != -(self.cols*self.rows + 1)
 
     def is_start(self, i, j):
         return i == self.start[0] and j == self.start[1]

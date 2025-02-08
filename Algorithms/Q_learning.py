@@ -1,12 +1,17 @@
 import random
+import sys
 from math import inf
+
+from PyQt6.QtWidgets import QApplication
+
 from Game_Engine.grid import Grid
+from Game_Engine.window import Window
 
 def argmax(list):
     return list.index(max(list))
 
-alpha = 0.5
-gamma = 0.5
+alpha = 0.9
+gamma = 0.9
 
 epsilon = 0.4
 
@@ -56,4 +61,21 @@ def training(grid = Grid()):
 
     return Q
 
-print(training(grid = Grid(5, 5)))
+def affichage(Q):
+    emojie = ["⬆️", "➡️", "⬇️", "⬅️"]
+
+    for i in Q:
+        u = ""
+        for j in i:
+            u += emojie[argmax(j)]
+        print(u)
+
+G = Grid(5,5)
+Q = training(grid = G)
+
+print(Q)
+affichage(Q)
+app = QApplication(sys.argv)
+window = Window(G, 100)
+window.show()
+sys.exit(app.exec())
