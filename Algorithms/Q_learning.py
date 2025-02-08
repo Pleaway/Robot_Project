@@ -5,9 +5,6 @@ from Game_Engine.grid import Grid
 def argmax(list):
     return list.index(max(list))
 
-cols = 4
-rows = 50
-
 alpha = 0.5
 gamma = 0.5
 
@@ -17,7 +14,6 @@ num_episodes = 500
 
 num_training = 100
 
-Q = [[[0, 0, 0, 0] for i in range(cols)] for j in range(rows)]
 
 def choose_action(Q, e, i, j):
     if random.random() < e :
@@ -40,9 +36,9 @@ def step(action, i,j, grid = Grid()):
         i, j = action_to_pos(action, i, j)[0], action_to_pos(action, i, j)[1]
     return i, j, grid.get_value(i, j)
 
-def training(Q, grid = Grid()):
+def training(grid = Grid()):
     target = grid.end
-
+    Q = [[[0, 0, 0, 0] for i in range(grid.cols)] for j in range(grid.rows)]
     for phase in range(num_training):
         state = grid.start
 
@@ -60,4 +56,4 @@ def training(Q, grid = Grid()):
 
     return Q
 
-print(training(Q, grid = Grid(5, 5)))
+print(training(grid = Grid(5, 5)))
