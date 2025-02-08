@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget
 from PyQt6.QtGui import QPainter, QColor, QBrush
 from PyQt6.QtCore import Qt
 from grid import Grid
-from robot import Robot
+from agent import Agent
 import sys
 
 class Window(QWidget):
@@ -10,7 +10,7 @@ class Window(QWidget):
         super().__init__()
         self.setWindowTitle("Robot IA")
         self.grid = grid
-        self.robot = Robot(start=grid.start)
+        self.agent = Agent(start=grid.start)
         self.rows = grid.rows
         self.cols = grid.cols
         self.cell_size = cell_size
@@ -22,7 +22,7 @@ class Window(QWidget):
     def paintEvent(self, event):
         painter = QPainter(self)
         self.draw_obstacles(painter)
-        self.draw_robot(painter)
+        self.draw_agent(painter)
         self.draw_grid(painter)
 
     def draw_grid(self, painter):
@@ -48,11 +48,11 @@ class Window(QWidget):
                     painter.setPen(Qt.GlobalColor.blue)
                     painter.drawRect(row * self.cell_size, col * self.cell_size, self.cell_size, self.cell_size)
 
-    def draw_robot(self,painter):
+    def draw_agent(self, painter):
         painter.setBrush(QBrush(Qt.GlobalColor.red, Qt.BrushStyle.SolidPattern))
         painter.setPen(Qt.GlobalColor.red)
-        row = self.robot.row
-        col = self.robot.col
+        row = self.agent.row
+        col = self.agent.col
         painter.drawRect(row*self.cell_size, col*self.cell_size, self.cell_size, self.cell_size)
 
 
@@ -61,5 +61,6 @@ if __name__ == "__main__":
     window = Window()
     window.show()
     sys.exit(app.exec())
+
 
 

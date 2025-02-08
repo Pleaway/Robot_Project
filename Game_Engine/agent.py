@@ -1,4 +1,4 @@
-class Robot:
+class Agent:
     def __init__(self, start):
         self.col = start[1]
         self.row = start[0]
