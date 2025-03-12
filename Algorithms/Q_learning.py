@@ -8,71 +8,82 @@ from Game_Engine.grid import Grid
 from Game_Engine.window import Window
 
 
-def argmax(lst):
-    max_value = max(lst)
-    return random.choice([i for i, x in enumerate(lst) if x == max_value])
+def argmax(list):
+    return list.index(max(list))
 
-
-alpha = 0.1  # Si trop haut apprentissage instable (Q mis à jour trop souvent), et difficultés à converger vers une solution
+alpha = 0.1
 gamma = 0.9
 
-epsilon = 0.4
+epsilon = 1
 epsilon_min = 0.01
-epsilon_decay = 0.99
+epsilon_decay = 0.995
 
-num_training = 100
+
+num_training = 1000
 
 
 def choose_action(Q, e, i, j):
-    if random.random() < e:
+    if random.random() < e :
         return random.randint(0, 3)
-    return argmax(Q[i][j])
-
+    else :
+        return argmax(Q[i][j])
 
 def action_to_pos(a, i, j):
-    moves = [(i, j + 1), (i + 1, j), (i, j - 1), (i - 1, j)]
-    return moves[a]
+    if a == 0:
+        return (i-1, j)
+    elif a == 1:
+        return (i, j+1)
+    elif a == 2:
+        return (i+1, j)
+    elif a == 3:
+        return (i, j-1)
 
+def step(action, i,j, grid = Grid()):
+    if action_to_pos(action, i, j) in grid.action_list(i, j):
+        i, j = action_to_pos(action, i, j)[0], action_to_pos(action, i, j)[1]
 
-def step(action, i, j, grid):
-    next_pos = action_to_pos(action, i, j)
-    if next_pos in grid.action_list(i, j):
-        i, j = next_pos
     return i, j, grid.get_value(i, j)
 
-
-def training(grid):
-    Q = [[[0, 0, 0, 0] for _ in range(grid.cols)] for _ in range(grid.rows)]
-
+def training(grid = Grid()):
+    target = grid.end
+    Q = [[[0, 0, 0, 0] for i in range(grid.cols)] for j in range(grid.rows)]
     global epsilon
     for phase in range(num_training):
         state = grid.start
 
-        while state != grid.end:
-            action = choose_action(Q, epsilon, state[0], state[1])
-            i, j, reward = step(action, state[0], state[1], grid)
+        while state != target:
+            action = choose_action(Q,epsilon,state[0], state[1])
+
+            i , j , reward = step(i = state[0], j = state[1], action = action, grid = grid)
 
             Q[state[0]][state[1]][action] += alpha * (reward + gamma * max(Q[i][j]) - Q[state[0]][state[1]][action])
+
             state = (i, j)
 
-        # Réduction d'epsilon après chaque épisode (encore pour la convergence), quand on réduit epsilon, on exploite plus les solutions trouvées jusqu'alors et on se rapproche donc de la bonne solution
+
         epsilon = max(epsilon_min, epsilon * epsilon_decay)
 
     return Q
 
+def affichage(Q, grid):
+    emojie = ["⬅️",  "⬇️", "➡️", "⬆️", "⛔"]
+    for i in range(grid.rows):
+        row_display = ""
+        for j in range(grid.cols):
+            if not grid.is_empty(j, i):
+                row_display += "⛔ "
+            elif grid.is_target(j, i):
+                row_display += "🚩 "
+            else:
+                row_display += emojie[argmax(Q[j][i])] + " "
+        print(row_display)
 
-def affichage(Q):
-    emojie = ["⬆️", "➡️", "⬇️", "⬅️"]
-    for row in Q:
-        print("".join(emojie[argmax(cell)] for cell in row))
+G = Grid(6,6)
+Q = training(grid = G)
 
-
-G = Grid(5, 5)
-Q = training(G)
-
-affichage(Q)
-
+print(Q)
+affichage(Q, G)
 app = QApplication(sys.argv)
-window = Window(G, 100)
+window = Window(G, 50)
 window.show()
 sys.exit(app.exec())
