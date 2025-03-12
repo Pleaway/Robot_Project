@@ -24,7 +24,7 @@ class Grid:
         while end_x == start_x and end_y == start_y:
             end_x, end_y = randint(0, self.rows - 1), randint(0, self.cols - 1)
         self.grid[start_x][start_y] = -1
-        self.grid[end_x][end_y] = 1
+        self.grid[end_x][end_y] = 100
         self.start = (start_x, start_y)
         self.end = (end_x, end_y)
     
