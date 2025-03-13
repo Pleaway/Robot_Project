@@ -44,16 +44,16 @@ class Window(QWidget):
                     painter.setPen(Qt.GlobalColor.green)
                     painter.drawRect(row * self.cell_size, col * self.cell_size, self.cell_size, self.cell_size)
                 elif self.grid.is_target(row, col):
-                    painter.setBrush(QBrush(Qt.GlobalColor.blue, Qt.BrushStyle.SolidPattern))
-                    painter.setPen(Qt.GlobalColor.blue)
+                    painter.setBrush(QBrush(Qt.GlobalColor.red, Qt.BrushStyle.SolidPattern))
+                    painter.setPen(Qt.GlobalColor.red)
                     painter.drawRect(row * self.cell_size, col * self.cell_size, self.cell_size, self.cell_size)
 
     def draw_agent(self, painter):
-        painter.setBrush(QBrush(Qt.GlobalColor.red, Qt.BrushStyle.SolidPattern))
-        painter.setPen(Qt.GlobalColor.red)
+        painter.setBrush(QBrush(Qt.GlobalColor.blue, Qt.BrushStyle.SolidPattern))
+        painter.setPen(Qt.GlobalColor.blue)
         row = self.agent.row
         col = self.agent.col
-        painter.drawRect(row*self.cell_size, col*self.cell_size, self.cell_size, self.cell_size)
+        painter.drawRect(row*self.cell_size+10, col*self.cell_size+10, self.cell_size-20, self.cell_size-20)
 
 
 if __name__ == "__main__":
