@@ -29,13 +29,13 @@ def choose_action(Q, e, i, j):
 
 def action_to_pos(a, i, j):
     if a == 0:
-        return (i-1, j)
+        return i-1, j
     elif a == 1:
-        return (i, j+1)
+        return i, j+1
     elif a == 2:
-        return (i+1, j)
+        return i+1, j
     elif a == 3:
-        return (i, j-1)
+        return i, j-1
 
 def step(action, i,j, grid = Grid()):
     if action_to_pos(action, i, j) in grid.action_list(i, j):
@@ -77,12 +77,16 @@ def affichage(Q, grid):
                 row_display += emojie[argmax(Q[j][i])] + " "
         print(row_display)
 
-G = Grid(6,6)
+def draw_path(self, painter, Q):
+    painter.setPen(Qt.GlobalColor.lightblue)
+    pass
+
+G = Grid(20,20)
 Q = training(grid = G)
 
 print(Q)
 affichage(Q, G)
 app = QApplication(sys.argv)
-window = Window(G, 50)
+window = Window(Q, G, 35)
 window.show()
 sys.exit(app.exec())

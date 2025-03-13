@@ -1,12 +1,29 @@
 from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget
 from PyQt6.QtGui import QPainter, QColor, QBrush
 from PyQt6.QtCore import Qt
+import time
+
+from Game_Engine import grid
 from Game_Engine.grid import Grid
 from Game_Engine.agent import Agent
 import sys
 
+
+def action_to_pos(a, i, j):
+    if a == 0:
+        return i - 1, j
+    elif a == 1:
+        return i, j + 1
+    elif a == 2:
+        return i + 1, j
+    elif a == 3:
+        return i, j - 1
+
+def argmax(list):
+    return list.index(max(list))
+
 class Window(QWidget):
-    def __init__(self, grid=Grid(), cell_size=20):
+    def __init__(self, Q, grid=Grid(), cell_size=20):
         super().__init__()
         self.setWindowTitle("Robot IA")
         self.grid = grid
@@ -17,13 +34,16 @@ class Window(QWidget):
         self.setFixedSize(self.cols * cell_size, self.rows * cell_size)
         self.setStyleSheet("background-color: white;")
         self.update()
+        self.Q = Q
 
 
     def paintEvent(self, event):
         painter = QPainter(self)
         self.draw_obstacles(painter)
-        self.draw_agent(painter)
         self.draw_grid(painter)
+        self.draw_path(painter)
+        self.draw_agent(painter)
+
 
     def draw_grid(self, painter):
         painter.setPen(Qt.GlobalColor.black)
@@ -54,6 +74,32 @@ class Window(QWidget):
         row = self.agent.row
         col = self.agent.col
         painter.drawRect(row*self.cell_size+10, col*self.cell_size+10, self.cell_size-20, self.cell_size-20)
+
+    def draw_path(self, painter):
+        painter.setBrush(QBrush(Qt.GlobalColor.blue, Qt.BrushStyle.SolidPattern))
+        painter.setPen(Qt.GlobalColor.blue)
+        state = self.grid.start
+        row = state[0]
+        col = state[1]
+        target = self.grid.end
+        while state != target:
+            print(state)
+            painter.drawRect(row * self.cell_size + 15, col * self.cell_size + 15, self.cell_size - 30, self.cell_size - 30)
+            data = argmax(self.Q[state[0]][state[1]])
+            new_state = action_to_pos(data, state[0], state[1])
+            row = new_state[0]
+            col = new_state[1]
+            state = new_state
+        self.agent.row = target[0]
+        self.agent.col = target[1]
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
