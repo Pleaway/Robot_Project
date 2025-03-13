@@ -1,6 +1,5 @@
 import random
 import sys
-from math import inf
 
 from PyQt6.QtWidgets import QApplication
 
