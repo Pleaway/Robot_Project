@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="295efd75-57a7-41cb-99eb-7c2bbea9ba2a" name="Changes" comment="modification affichage">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="295efd75-57a7-41cb-99eb-7c2bbea9ba2a" name="Changes" comment="changes by jjqdr" />
+    <list id="2f3e6c79-1f6f-4d75-b77e-7852566c28a7" name="Changes by Yahia" comment="">
+      <change beforePath="$PROJECT_DIR$/Game_Engine/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_Engine/window.py" afterDir="false" />
     </list>
-    <list id="25e0ae32-e0e5-41d6-b613-43fa66394929" name="Changes by leona" comment="" />
-    <list id="2f3e6c79-1f6f-4d75-b77e-7852566c28a7" name="Changes by Yahia" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,52 +27,36 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Pleaway&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Pleaway/Robot_Project.git&quot;,
-    &quot;accountId&quot;: &quot;8299b2a6-2b67-4a3d-9907-eb9c0f0bc101&quot;
-  }
-}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2sa8D10j3stsaqucQALIUn1t5b0" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Q_learning.executor": "Run",
-    "Python.agent.executor": "Run",
-    "Python.grid.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.window.executor": "Run",
-    "Python.windows.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/cours_L2_MPCI/ProjetRobot/Robot_Project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "inlay.hints",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.grid.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.window.executor&quot;: &quot;Run&quot;,
+    &quot;Python.windows.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/cours_L2_MPCI/ProjetRobot/Robot_Project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Python.window">
     <configuration name="window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Robot_Project" />
       <option name="ENV_FILES" value="" />
@@ -130,8 +113,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PY-243.23654.177" />
-        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-PY-243.21565.199" />
+        <option value="bundled-python-sdk-cab1f2013843-4ae2d6a61b08-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.21565.199" />
       </set>
     </attachedChunks>
   </component>
@@ -145,11 +128,7 @@
       <updated>1738681399466</updated>
       <workItem from="1738681400557" duration="796000" />
       <workItem from="1738682202509" duration="112000" />
-      <workItem from="1738682340744" duration="7608000" />
-      <workItem from="1739028810733" duration="5139000" />
-      <workItem from="1739195007318" duration="164000" />
-      <workItem from="1741809746479" duration="8737000" />
-      <workItem from="1741867383689" duration="2627000" />
+      <workItem from="1738682340744" duration="8107000" />
     </task>
     <task id="LOCAL-00001" summary="caca">
       <option name="closed" value="true" />
@@ -159,29 +138,29 @@
       <option name="project" value="LOCAL" />
       <updated>1738682900382</updated>
     </task>
-    <task id="LOCAL-00002" summary="modification reward et correction">
+    <task id="LOCAL-00002" summary="caca">
       <option name="closed" value="true" />
-      <created>1741817768255</created>
+      <created>1738690583936</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1741817768255</updated>
+      <updated>1738690583936</updated>
     </task>
-    <task id="LOCAL-00003" summary="modification reward et correction">
+    <task id="LOCAL-00003" summary="Changes by leona">
       <option name="closed" value="true" />
-      <created>1741817990528</created>
+      <created>1738690641403</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1741817990528</updated>
+      <updated>1738690641403</updated>
     </task>
-    <task id="LOCAL-00004" summary="modification affichage">
+    <task id="LOCAL-00004" summary="changes by jjqdr">
       <option name="closed" value="true" />
-      <created>1741870009210</created>
+      <created>1738691013135</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1741870009210</updated>
+      <updated>1738691013135</updated>
     </task>
     <option name="localTasksCounter" value="5" />
     <servers />
@@ -194,19 +173,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -214,16 +181,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="caca" />
-    <MESSAGE value="modification reward et correction" />
-    <MESSAGE value="modification affichage" />
-    <option name="LAST_COMMIT_MESSAGE" value="modification affichage" />
+    <MESSAGE value="Changes by leona" />
+    <MESSAGE value="changes by jjqdr" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes by jjqdr" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Robot_Project$window.coverage" NAME="window Coverage Results" MODIFIED="1741818195497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game_Engine" />
-    <SUITE FILE_PATH="coverage/Robot_Project$windows.coverage" NAME="windows Coverage Results" MODIFIED="1738685444233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/moteur de jeux" />
     <SUITE FILE_PATH="coverage/Robot_Project$main.coverage" NAME="main Coverage Results" MODIFIED="1738685401218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Robot_Project$Q_learning.coverage" NAME="Q_learning Coverage Results" MODIFIED="1741869952297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Algorithms" />
+    <SUITE FILE_PATH="coverage/Robot_Project$windows.coverage" NAME="windows Coverage Results" MODIFIED="1738685444233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/moteur de jeux" />
+    <SUITE FILE_PATH="coverage/Robot_Project$window.coverage" NAME="window Coverage Results" MODIFIED="1738690762869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game_Engine" />
     <SUITE FILE_PATH="coverage/Robot_Project$grid.coverage" NAME="grid Coverage Results" MODIFIED="1738688434619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game_Engine" />
-    <SUITE FILE_PATH="coverage/Robot_Project$agent.coverage" NAME="agent Coverage Results" MODIFIED="1741869059164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game_Engine" />
   </component>
 </project>
