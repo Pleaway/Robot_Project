@@ -2,7 +2,6 @@ from random import random, randint
 from math import sqrt, inf
 
 
-
 class Grid:
     def __init__(self, rows=50, cols=50, proba=0.2):
         self.rows = rows
@@ -27,7 +26,7 @@ class Grid:
         self.grid[end_x][end_y] = 100
         self.start = (start_x, start_y)
         self.end = (end_x, end_y)
-    
+
     def is_empty(self, i, j):
         return self.grid[i][j] != -(self.cols*self.rows + 1)
 
@@ -44,7 +43,7 @@ class Grid:
         actions = []
         if self.cols - 1 > i:
             actions.append((i+1, j))
-        if  i > 0:
+        if i > 0:
             actions.append((i-1, j))
         if self.rows - 1 > j:
             actions.append((i, j+1))
@@ -60,19 +59,8 @@ class Grid:
             text += "\n"
         return text
 
-    def distance(self,q1,q2):
+    def distance(self, q1, q2):
         return sqrt((q1[0]-q2[0])**2 + (q1[1]-q2[1])**2)
-
-    def attractive_potential(self,i_q,j_q, critical_distance = 1, weight = 1,):
-        q=(i_q, j_q)
-        d_c = critical_distance
-        w = weight
-        q0 = self.end
-        d=self.distance(q,q0)
-        if d <= d_c:
-            return (w/2)*d**2
-        else:
-            return d_c*w*d-(w/2)*d_c**2
 
     def closest_obstacle_distance(self, i_q, j_q):
         q = (i_q, j_q)
@@ -84,20 +72,3 @@ class Grid:
                     if d < min_dist:
                         min_dist = d
         return min_dist
-
-    def repulsive_potential(self, i_q, j_q, critical_distance = 1, weight = 1,):
-        q=(i_q, j_q)
-        d_c = critical_distance
-        w = weight
-        d= self.closest_obstacle_distance(i_q, j_q)
-        if d <= d_c:
-            return (w / 2) * ((1 / d - 1 / d_c) ** 2)
-        elif d >= d_c:
-            return 0
-        else:
-            return inf
-
-    def total_potential(self,i_q, j_q, critical_distance_att = 1, critical_distance_rep=1, weight_att = 1, weight_rep = 1):
-        attractive_potential = self.attractive_potential(i_q, j_q, critical_distance_att, weight_att)
-        repulsive_potential = self.repulsive_potential(i_q, j_q, 3, 40)
-        return attractive_potential + repulsive_potential

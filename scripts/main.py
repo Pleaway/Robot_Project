@@ -19,6 +19,6 @@ affichage(Q, G)
 
 # Create and display window
 app = QApplication(sys.argv)
-window = Window(Q, G, 35)
+window = Window(Q=Q, grid=G, cell_size=35, APF=True)
 window.show()
 sys.exit(app.exec())
