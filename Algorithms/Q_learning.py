@@ -81,12 +81,14 @@ def draw_path(self, painter, Q):
     painter.setPen(Qt.GlobalColor.lightblue)
     pass
 
-G = Grid(20,20)
-Q = training(grid = G)
 
-print(Q)
-affichage(Q, G)
-app = QApplication(sys.argv)
-window = Window(Q, G, 35)
-window.show()
-sys.exit(app.exec())
+if __name__ == "__main__":
+    G = Grid(20,20)
+    Q = training(grid = G)
+    
+    print(Q)
+    affichage(Q, G)
+    app = QApplication(sys.argv)
+    window = Window(Q, G, 35)
+    window.show()
+    sys.exit(app.exec())

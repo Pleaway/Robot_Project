@@ -42,7 +42,7 @@ class Window(QWidget):
         self.draw_potential_field(painter)
         self.draw_obstacles(painter)
         self.draw_grid(painter)
-        self.draw_path(painter)
+        self.draw_Qlearn_path(painter)
         self.draw_agent(painter)
 
 
@@ -114,9 +114,9 @@ class Window(QWidget):
                 painter.setPen(Qt.GlobalColor.transparent)
                 painter.drawRect(i * self.cell_size, j * self.cell_size, self.cell_size, self.cell_size)
 
-    def draw_path(self, painter):
-        painter.setBrush(QBrush(Qt.GlobalColor.blue, Qt.BrushStyle.SolidPattern))
-        painter.setPen(Qt.GlobalColor.blue)
+    def draw_Qlearn_path(self, painter, color=(50, 150, 50, 255)):
+        painter.setBrush(QBrush(QColor(color[0],color[1],color[2],color[3]), Qt.BrushStyle.SolidPattern))
+        painter.setPen(QColor(color[0],color[1],color[2],color[3]))
         state = self.grid.start
         row = state[0]
         col = state[1]
@@ -131,12 +131,6 @@ class Window(QWidget):
             state = new_state
         self.agent.row = target[0]
         self.agent.col = target[1]
-
-
-
-
-
-
 
 
 
