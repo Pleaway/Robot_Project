@@ -4,3 +4,6 @@
 # Répertoires de travail
 .idea
 *cache*
+
+# Fichiers de travail
+setup.cfg
