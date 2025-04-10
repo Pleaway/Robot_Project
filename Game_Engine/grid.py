@@ -1,5 +1,5 @@
 from random import random, randint
-from math import inf, isinf
+from math import sqrt, inf
 
 
 
@@ -59,3 +59,45 @@ class Grid:
                 text += str(j) + " "
             text += "\n"
         return text
+
+    def distance(self,q1,q2):
+        return sqrt((q1[0]-q2[0])**2 + (q1[1]-q2[1])**2)
+
+    def attractive_potential(self,i_q,j_q, critical_distance = 1, weight = 1,):
+        q=(i_q, j_q)
+        d_c = critical_distance
+        w = weight
+        q0 = self.end
+        d=self.distance(q,q0)
+        if d <= d_c:
+            return (w/2)*d**2
+        else:
+            return d_c*w*d-(w/2)*d_c**2
+
+    def closest_obstacle_distance(self, i_q, j_q):
+        q = (i_q, j_q)
+        min_dist = inf
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if not self.is_empty(i, j) and not self.is_target(i, j):
+                    d = self.distance(q, (i, j))
+                    if d < min_dist:
+                        min_dist = d
+        return min_dist
+
+    def repulsive_potential(self, i_q, j_q, critical_distance = 1, weight = 1,):
+        q=(i_q, j_q)
+        d_c = critical_distance
+        w = weight
+        d= self.closest_obstacle_distance(i_q, j_q)
+        if d <= d_c:
+            return (w / 2) * ((1 / d - 1 / d_c) ** 2)
+        elif d >= d_c:
+            return 0
+        else:
+            return inf
+
+    def total_potential(self,i_q, j_q, critical_distance_att = 1, critical_distance_rep=1, weight_att = 1, weight_rep = 1):
+        attractive_potential = self.attractive_potential(i_q, j_q, critical_distance_att, weight_att)
+        repulsive_potential = self.repulsive_potential(i_q, j_q, 3, 40)
+        return attractive_potential + repulsive_potential

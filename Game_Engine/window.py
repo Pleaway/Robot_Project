@@ -21,6 +21,7 @@ class Window(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
+        self.draw_potential_field(painter)
         self.draw_obstacles(painter)
         self.draw_agent(painter)
         self.draw_grid(painter)
@@ -55,6 +56,43 @@ class Window(QWidget):
         col = self.agent.col
         painter.drawRect(row*self.cell_size+10, col*self.cell_size+10, self.cell_size-20, self.cell_size-20)
 
+    def potential_to_color(self, value, min_val, max_val):
+        if value == float('inf'):
+            return QColor(0, 0, 0)  # noir pour l'infini (obstacles)
+
+        # Normalisation [0,1]
+        normalized = (value - min_val) / (max_val - min_val + 1e-9)
+        normalized = max(0.0, min(1.0, normalized))  # clamp
+
+        red = int(255 * (1 - normalized))
+        green = int(255 * (1 - normalized))
+        blue = 255
+
+        return QColor(red, green, blue)
+
+    def draw_potential_field(self, painter):
+        potentials = []
+        for row in range(self.grid.rows):
+            row_pot = []
+            for col in range(self.grid.cols):
+                if self.grid.is_empty(row, col) or self.grid.is_target(row, col):
+                    pot = self.grid.total_potential(row, col)
+                else:
+                    pot = float('inf')
+                row_pot.append(pot)
+            potentials.append(row_pot)
+
+        # Trouver min et max (hors inf)
+        flat = [p for row in potentials for p in row if p != float('inf')]
+        min_val = min(flat)
+        max_val = max(flat)
+
+        for i in range(self.grid.rows):
+            for j in range(self.grid.cols):
+                color = self.potential_to_color(potentials[i][j], min_val, max_val)
+                painter.setBrush(QBrush(color, Qt.BrushStyle.SolidPattern))
+                painter.setPen(Qt.GlobalColor.transparent)
+                painter.drawRect(i * self.cell_size, j * self.cell_size, self.cell_size, self.cell_size)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
