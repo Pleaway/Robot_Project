@@ -4,7 +4,7 @@ from math import sqrt, inf
 
 
 class Grid:
-    def __init__(self, rows=50, cols=50, proba=0.1):
+    def __init__(self, rows=50, cols=50, proba=0.2):
         self.rows = rows
         self.cols = cols
         self.proba = proba
