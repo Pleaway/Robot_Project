@@ -1,0 +1,6 @@
+# Documentation
+*.pdf
+
+# Répertoires de travail
+.idea
+*cache*

@@ -1,10 +1,5 @@
 import random
-import sys
-
-from PyQt6.QtWidgets import QApplication
-
 from Game_Engine.grid import Grid
-from Game_Engine.window import Window
 
 
 def argmax(list):
@@ -59,7 +54,6 @@ def training(grid = Grid()):
 
             state = (i, j)
 
-
         epsilon = max(epsilon_min, epsilon * epsilon_decay)
 
     return Q
@@ -80,15 +74,3 @@ def affichage(Q, grid):
 def draw_path(self, painter, Q):
     painter.setPen(Qt.GlobalColor.lightblue)
     pass
-
-
-if __name__ == "__main__":
-    G = Grid(20,20)
-    Q = training(grid = G)
-    
-    print(Q)
-    affichage(Q, G)
-    app = QApplication(sys.argv)
-    window = Window(Q, G, 35)
-    window.show()
-    sys.exit(app.exec())

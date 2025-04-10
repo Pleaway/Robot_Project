@@ -132,14 +132,3 @@ class Window(QWidget):
         self.agent.row = target[0]
         self.agent.col = target[1]
 
-
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = Window()
-    window.show()
-    sys.exit(app.exec())
-
-
-
