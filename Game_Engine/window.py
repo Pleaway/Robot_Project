@@ -1,7 +1,8 @@
-from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget
+from PyQt6.QtWidgets import QWidget
+# from PyQt6.QtWidgets import QMainWindow, QApplication,
 from PyQt6.QtGui import QPainter, QColor, QBrush
 from PyQt6.QtCore import Qt
-import time
+# import time
 from Game_Engine.grid import Grid
 from Algorithms.APF import build_potentials_list
 
@@ -26,9 +27,12 @@ def argmax(list):
 
 
 class Window(QWidget):
+    '''Q : Q matrix for Q learning; grid : Grid object; APF : tuple, APF parameters (set to False to not use APF);
+    cell_size : int'''
     def __init__(self, Q=None, grid=Grid(), cell_size=20, APF=False):
         super().__init__()
-        self.apf_status = APF
+        # apf_param : tuple  (crit_dist_att, crit_dist_rep, w_att, w_rep) if APF used or False otherwise
+        self.apf_param = APF
         self.setWindowTitle("Robot IA")
         self.grid = grid
         self.agent = Agent(start=grid.start)
@@ -42,7 +46,7 @@ class Window(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        if self.apf_status:
+        if self.apf_param:
             self.draw_potential_field(painter)
         self.draw_obstacles(painter)
         self.draw_grid(painter)
@@ -97,7 +101,7 @@ class Window(QWidget):
         return QColor(red, green, blue)
 
     def draw_potential_field(self, painter):
-        potentials, min_val, max_val = build_potentials_list(self.grid)
+        potentials, min_val, max_val = build_potentials_list(self.grid, *self.apf_param)
         for i in range(self.grid.rows):
             for j in range(self.grid.cols):
                 color = self.potential_to_color(potentials[i][j], min_val, max_val)
@@ -106,8 +110,8 @@ class Window(QWidget):
                 painter.drawRect(i * self.cell_size, j * self.cell_size, self.cell_size, self.cell_size)
 
     def draw_Qlearn_path(self, painter, color=(50, 150, 50, 255)):
-        painter.setBrush(QBrush(QColor(color[0], color[1], color[2], color[3]), Qt.BrushStyle.SolidPattern))
-        painter.setPen(QColor(color[0], color[1], color[2], color[3]))
+        painter.setBrush(QBrush(QColor(*color), Qt.BrushStyle.SolidPattern))
+        painter.setPen(QColor(*color))
         state = self.grid.start
         row = state[0]
         col = state[1]

@@ -1,4 +1,4 @@
-from math import inf
+# from math import inf
 
 
 def attractive_potential(grid, i_q, j_q, critical_distance=1, weight=1):
@@ -19,25 +19,26 @@ def repulsive_potential(grid, i_q, j_q, critical_distance=1, weight=1):
     d = grid.closest_obstacle_distance(i_q, j_q)
     if d <= d_c:
         return (w / 2) * ((1 / d - 1 / d_c) ** 2)
-    elif d >= d_c:
+    elif d > d_c:
         return 0
-    else:
-        return inf
+#    else:
+#        return inf
+# À quoi sert ce troisième cas ?
 
 
-def total_potential(grid, i_q, j_q, critical_distance_att=1, critical_distance_rep=1, weight_att=1, weight_rep=1):
+def total_potential(grid, i_q, j_q, critical_distance_att=1, critical_distance_rep=1, weight_att=10, weight_rep=1):
     attractive = attractive_potential(grid, i_q, j_q, critical_distance_att, weight_att)
     repulsive = repulsive_potential(grid, i_q, j_q, 3, 40)
     return attractive + repulsive
 
 
-def build_potentials_list(grid):
+def build_potentials_list(grid, crit_dist_att=1, crit_dist_rep=1, w_att=10, w_rep=1):
     potentials = []
     for row in range(grid.rows):
         row_pot = []
         for col in range(grid.cols):
             if grid.is_empty(row, col) or grid.is_target(row, col):
-                pot = total_potential(grid, row, col)
+                pot = total_potential(grid, row, col, crit_dist_att, crit_dist_rep, w_att, w_rep)
             else:
                 pot = float("inf")
             row_pot.append(pot)

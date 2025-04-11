@@ -17,8 +17,11 @@ print(Q)
 # Display Q matrix in terminal with emojis
 affichage(Q, G)
 
+# Set APF parameters :  (crit_dist_att, crit_dist_rep, w_att, w_rep)
+APF = (2, 2, 3, 1)
+
 # Create and display window
 app = QApplication(sys.argv)
-window = Window(Q=Q, grid=G, cell_size=35, APF=True)
+window = Window(Q=Q, grid=G, cell_size=35, APF=APF)
 window.show()
 sys.exit(app.exec())
