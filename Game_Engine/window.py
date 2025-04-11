@@ -91,8 +91,8 @@ class Window(QWidget):
             return QColor(0, 0, 0)  # noir pour l'infini (obstacles)
 
         # Normalisation [0,1]
-        normalized = (value - min_val) / (max_val - min_val + 1e-9)
-        normalized = max(0.0, min(1.0, normalized))  # clamp
+        normalized = (value - min_val) / (max_val - min_val)
+        # normalized = max(0.0, min(1.0, normalized))  # clamp
 
         red = int(255 * (1 - normalized))
         green = int(255 * (1 - normalized))
@@ -109,7 +109,7 @@ class Window(QWidget):
                 painter.setPen(Qt.GlobalColor.transparent)
                 painter.drawRect(i * self.cell_size, j * self.cell_size, self.cell_size, self.cell_size)
 
-    def draw_Qlearn_path(self, painter, color=(50, 150, 50, 255)):
+    def draw_Qlearn_path(self, painter, color=(240, 120, 50, 255)):
         painter.setBrush(QBrush(QColor(*color), Qt.BrushStyle.SolidPattern))
         painter.setPen(QColor(*color))
         state = self.grid.start

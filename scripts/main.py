@@ -18,7 +18,7 @@ print(Q)
 affichage(Q, G)
 
 # Set APF parameters :  (crit_dist_att, crit_dist_rep, w_att, w_rep)
-APF = (2, 2, 3, 1)
+APF = (1, 3, 1, 20)
 
 # Create and display window
 app = QApplication(sys.argv)
