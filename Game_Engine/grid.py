@@ -72,3 +72,18 @@ class Grid:
                     if d < min_dist:
                         min_dist = d
         return min_dist
+
+    def grad_closest_obs_dist(self, i_q, j_q):
+        q = (i_q, j_q)
+        min_dist = inf
+        closest_obst = (inf, inf)
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if not self.is_empty(i, j) and not self.is_target(i, j):
+                    d = self.distance(q, (i, j))
+                    if d < min_dist:
+                        min_dist = d
+                        closest_obst = (i, j)
+        grad_i = (closest_obst[0] - i_q)/min_dist
+        grad_j = (closest_obst[1] - j_q)/min_dist
+        return (grad_i, grad_j)
