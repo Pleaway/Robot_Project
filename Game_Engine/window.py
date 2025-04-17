@@ -49,6 +49,8 @@ class Window(QWidget):
         self.draw_grid(painter)
         if self.grid.Q is not None:
             self.draw_Qlearn_path(painter)
+        if self.grid.apf_param:
+            self.draw_APF_path(painter)
         self.draw_agent(painter)
 
     def draw_grid(self, painter):
@@ -124,5 +126,28 @@ class Window(QWidget):
             row = new_state[0]
             col = new_state[1]
             state = new_state
+        self.agent.row = target[0]
+        self.agent.col = target[1]
+
+    def draw_APF_path(self, painter, color=(50, 200, 180, 255)):
+        painter.setBrush(QBrush(QColor(*color), Qt.BrushStyle.SolidPattern))
+        painter.setPen(QColor(*color))
+        state = self.grid.start
+        row = state[0]
+        col = state[1]
+        target = self.grid.end
+        limit = 0
+        low_pot = 0
+        while state != target and limit < self.grid.rows * self.grid.cols and low_pot != float("inf"):
+
+            painter.drawRect(
+                row * self.cell_size + 3*self.cell_size//5, col * self.cell_size + self.cell_size//5,
+                self.cell_size//5, self.cell_size//5
+            )
+            low_pot, new_state = self.grid.next_apf_move(state[0], state[1])
+            row = new_state[0]
+            col = new_state[1]
+            state = new_state
+            limit += 1
         self.agent.row = target[0]
         self.agent.col = target[1]

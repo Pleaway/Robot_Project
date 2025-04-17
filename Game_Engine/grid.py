@@ -1,6 +1,6 @@
 from random import random, randint
 from math import sqrt, inf
-from Algorithms.APF import build_potentials_list
+from Algorithms.APF import build_potentials_list, find_adjacent_lowest
 
 
 class Grid:
@@ -82,3 +82,6 @@ class Grid:
                     if d < min_dist:
                         min_dist = d
         return min_dist
+
+    def next_apf_move(self, i, j):
+        return find_adjacent_lowest(self, i, j)

@@ -44,3 +44,12 @@ def build_potentials_list(grid, crit_dist_att=1, crit_dist_rep=1, w_att=10, w_re
     max_val = max(flat)
 
     return potentials, min_val, max_val
+
+
+def find_adjacent_lowest(grid, i, j):
+    neighbours = grid.action_list(i, j)
+    pot_list = []
+    for pos in neighbours:
+        pot_list.append(grid.potentials[pos[0]][pos[1]])
+    min_pot = min(pot_list)
+    return min_pot, neighbours[pot_list.index(min_pot)]
