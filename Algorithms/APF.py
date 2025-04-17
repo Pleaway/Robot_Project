@@ -1,7 +1,5 @@
-# from math import inf
 
-
-def attractive_potential(grid, i_q, j_q, critical_distance=1, weight=1):
+def attractive_potential(grid, i_q, j_q, critical_distance, weight):
     q = (i_q, j_q)
     d_c = critical_distance
     w = weight
@@ -13,7 +11,7 @@ def attractive_potential(grid, i_q, j_q, critical_distance=1, weight=1):
         return d_c * w * d - (w / 2) * d_c**2
 
 
-def repulsive_potential(grid, i_q, j_q, critical_distance=1, weight=1):
+def repulsive_potential(grid, i_q, j_q, critical_distance, weight):
     d_c = critical_distance
     w = weight
     d = grid.closest_obstacle_distance(i_q, j_q)
@@ -26,9 +24,9 @@ def repulsive_potential(grid, i_q, j_q, critical_distance=1, weight=1):
 # À quoi sert ce troisième cas ?
 
 
-def total_potential(grid, i_q, j_q, critical_distance_att=1, critical_distance_rep=1, weight_att=10, weight_rep=1):
-    attractive = attractive_potential(grid, i_q, j_q, critical_distance_att, weight_att)
-    repulsive = repulsive_potential(grid, i_q, j_q, 3, 40)
+def total_potential(grid, i_q, j_q, crit_dist_att=1, crit_dist_rep=1, w_att=1, w_rep=40):
+    attractive = attractive_potential(grid, i_q, j_q, crit_dist_att, w_att)
+    repulsive = repulsive_potential(grid, i_q, j_q, crit_dist_rep, w_rep)
     return attractive + repulsive
 
 
