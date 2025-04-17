@@ -60,6 +60,7 @@ def training(grid=Grid()):
 
         epsilon = max(epsilon_min, epsilon * epsilon_decay)
 
+    grid.Q = Q
     return Q
 
 

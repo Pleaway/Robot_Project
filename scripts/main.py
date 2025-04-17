@@ -7,8 +7,11 @@ from Game_Engine.grid import Grid
 from Game_Engine.window import Window
 
 
-# Grid parameters : set grid size
-G = Grid(20, 20)
+# Set APF parameters :  (crit_dist_att, crit_dist_rep, w_att, w_rep)
+APF = (1, 3, 30, 20)
+
+# Grid parameters : set grid size, APF parameters
+G = Grid(rows=8, cols=8, apf_param=APF)
 
 # Create the Q matrix with Q learning
 Q = training(grid=G)
@@ -17,11 +20,9 @@ print(Q)
 # Display Q matrix in terminal with emojis
 affichage(Q, G)
 
-# Set APF parameters :  (crit_dist_att, crit_dist_rep, w_att, w_rep)
-APF = (1, 3, 1, 20)
 
 # Create and display window
 app = QApplication(sys.argv)
-window = Window(Q=Q, grid=G, cell_size=35, APF=APF)
+window = Window(grid=G, cell_size=80)
 window.show()
 sys.exit(app.exec())

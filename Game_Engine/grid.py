@@ -1,14 +1,24 @@
 from random import random, randint
 from math import sqrt, inf
+from Algorithms.APF import build_potentials_list
 
 
 class Grid:
-    def __init__(self, rows=50, cols=50, proba=0.2):
+    def __init__(self, rows=50, cols=50, proba=0.2, apf_param=False, Q=None):
+        ''' Arguments ---
+            rows, cols : nb of rows/cols ;
+            proba : probability of obstacles if no grid given ;
+            apf_param : tuple  (crit_dist_att, crit_dist_rep, w_att, w_rep) if APF used or False otherwise;
+            Q : Q matrix generated from Q learning'''
         self.rows = rows
         self.cols = cols
         self.proba = proba
         self.grid = [[-1 for i in range(cols)] for j in range(rows)]
         self.init_grid()
+        self.Q = Q
+        self.apf_param = apf_param
+        if apf_param:
+            self.potentials, self.min_val, self.max_val = build_potentials_list(self, *apf_param)
 
     def init_obstacles(self):
         for i in range(self.rows):

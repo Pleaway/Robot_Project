@@ -19,9 +19,6 @@ def repulsive_potential(grid, i_q, j_q, critical_distance, weight):
         return (w / 2) * ((1 / d - 1 / d_c) ** 2)
     elif d > d_c:
         return 0
-#    else:
-#        return inf
-# À quoi sert ce troisième cas ?
 
 
 def total_potential(grid, i_q, j_q, crit_dist_att=1, crit_dist_rep=1, w_att=1, w_rep=40):

@@ -4,7 +4,6 @@ from PyQt6.QtGui import QPainter, QColor, QBrush
 from PyQt6.QtCore import Qt
 # import time
 from Game_Engine.grid import Grid
-from Algorithms.APF import build_potentials_list
 
 # from Game_Engine import grid
 # from Game_Engine.grid import Grid
@@ -29,10 +28,9 @@ def argmax(list):
 class Window(QWidget):
     '''Q : Q matrix for Q learning; grid : Grid object; APF : tuple, APF parameters (set to False to not use APF);
     cell_size : int'''
-    def __init__(self, Q=None, grid=Grid(), cell_size=20, APF=False):
+    def __init__(self, grid=Grid(), cell_size=20):
         super().__init__()
-        # apf_param : tuple  (crit_dist_att, crit_dist_rep, w_att, w_rep) if APF used or False otherwise
-        self.apf_param = APF
+
         self.setWindowTitle("Robot IA")
         self.grid = grid
         self.agent = Agent(start=grid.start)
@@ -42,15 +40,14 @@ class Window(QWidget):
         self.setFixedSize(self.cols * cell_size, self.rows * cell_size)
         self.setStyleSheet("background-color: white;")
         self.update()
-        self.Q = Q
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        if self.apf_param:
+        if self.grid.apf_param:
             self.draw_potential_field(painter)
         self.draw_obstacles(painter)
         self.draw_grid(painter)
-        if self.Q is not None:
+        if self.grid.Q is not None:
             self.draw_Qlearn_path(painter)
         self.draw_agent(painter)
 
@@ -83,7 +80,8 @@ class Window(QWidget):
         row = self.agent.row
         col = self.agent.col
         painter.drawRect(
-            row * self.cell_size + 10, col * self.cell_size + 10, self.cell_size - 20, self.cell_size - 20
+            row * self.cell_size + self.cell_size//4, col * self.cell_size + self.cell_size//4,
+            self.cell_size//2, self.cell_size//2
         )
 
     def potential_to_color(self, value, min_val, max_val):
@@ -101,10 +99,9 @@ class Window(QWidget):
         return QColor(red, green, blue)
 
     def draw_potential_field(self, painter):
-        potentials, min_val, max_val = build_potentials_list(self.grid, *self.apf_param)
         for i in range(self.grid.rows):
             for j in range(self.grid.cols):
-                color = self.potential_to_color(potentials[i][j], min_val, max_val)
+                color = self.potential_to_color(self.grid.potentials[i][j], self.grid.min_val, self.grid.max_val)
                 painter.setBrush(QBrush(color, Qt.BrushStyle.SolidPattern))
                 painter.setPen(Qt.GlobalColor.transparent)
                 painter.drawRect(i * self.cell_size, j * self.cell_size, self.cell_size, self.cell_size)
@@ -119,9 +116,10 @@ class Window(QWidget):
         while state != target:
             print(state)
             painter.drawRect(
-                row * self.cell_size + 15, col * self.cell_size + 15, self.cell_size - 30, self.cell_size - 30
+                row * self.cell_size + self.cell_size//5, col * self.cell_size + self.cell_size//5,
+                self.cell_size//5, self.cell_size//5
             )
-            data = argmax(self.Q[state[0]][state[1]])
+            data = argmax(self.grid.Q[state[0]][state[1]])
             new_state = action_to_pos(data, state[0], state[1])
             row = new_state[0]
             col = new_state[1]
