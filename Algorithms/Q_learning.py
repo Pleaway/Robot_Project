@@ -5,18 +5,6 @@ from Game_Engine.grid import Grid
 def argmax(list):
     return list.index(max(list))
 
-
-alpha = 0.1
-gamma = 0.9
-
-epsilon = 1
-epsilon_min = 0.01
-epsilon_decay = 0.995
-
-
-num_training = 1000
-
-
 def choose_action(Q, e, i, j):
     if random.random() < e:
         return random.randint(0, 3)
@@ -42,12 +30,13 @@ def step(action, i, j, grid=Grid()):
     return i, j, grid.get_value(i, j)
 
 
-def training(grid=Grid()):
+def training(grid=Grid(), num_training=10000, alpha=0.1, gamma=0.9, epsilon=1, epsilon_min=0, epsilon_decay=0.995, stats=False):
     target = grid.end
     Q = [[[0, 0, 0, 0] for i in range(grid.cols)] for j in range(grid.rows)]
-    global epsilon
+    length_list = []
     for phase in range(num_training):
         state = grid.start
+        steps = 0
 
         while state != target:
             action = choose_action(Q, epsilon, state[0], state[1])
@@ -57,11 +46,26 @@ def training(grid=Grid()):
             Q[state[0]][state[1]][action] += alpha * (reward + gamma * max(Q[i][j]) - Q[state[0]][state[1]][action])
 
             state = (i, j)
+            steps+=1
 
         epsilon = max(epsilon_min, epsilon * epsilon_decay)
 
+        if stats:
+            length_list.append(steps)
+            if phase % (num_training/100) == 0:
+                if round(phase/num_training*100, 1) < 11:
+                    print('\b'*5, end='')
+                else:
+                    print('\b'*6, end='')
+                print(round(phase/num_training*100, 1), "%", end='')
+    print('\r 100 %', end='')
+
+
     grid.Q = Q
-    return Q
+    if stats:
+        return Q, length_list
+    else :
+        return Q
 
 
 def affichage(Q, grid):
