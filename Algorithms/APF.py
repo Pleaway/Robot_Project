@@ -1,3 +1,12 @@
+def action_to_pos(a, i, j):
+    if a == 0:
+        return i - 1, j
+    elif a == 1:
+        return i, j + 1
+    elif a == 2:
+        return i + 1, j
+    elif a == 3:
+        return i, j - 1
 
 def attractive_potential(grid, i_q, j_q, critical_distance, weight):
     q = (i_q, j_q)
@@ -53,3 +62,21 @@ def find_adjacent_lowest(grid, i, j):
         pot_list.append(grid.potentials[pos[0]][pos[1]])
     min_pot = min(pot_list)
     return min_pot, neighbours[pot_list.index(min_pot)]
+
+def create_Q(grid, crit_dist_att=1, crit_dist_rep=1, w_att=10, w_rep=1):
+    potentials, _, _ = build_potentials_list(grid, crit_dist_att, crit_dist_rep, w_att, w_rep)
+
+    Q = [[[0, 0, 0, 0] for i in range(grid.cols)] for j in range(grid.rows)]
+
+    for i in range(grid.rows):
+        for j in range(grid.cols):
+            if not grid.is_empty(i, j) and not grid.is_target(i, j):
+                continue
+            for a in range(4):
+                ni, nj = action_to_pos(a, i, j)
+                if (ni, nj) in grid.action_list(i, j):
+                    pot = potentials[ni][nj]
+                    Q[i][j][a] = 1 / (pot + 1e-6)
+                else:
+                    Q[i][j][a] = -(grid.rows*grid.cols + 1)
+    return Q
