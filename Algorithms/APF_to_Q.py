@@ -1,52 +1,27 @@
-def adjacent_cases(matrix, i, j):
-    adjacent = []
-    cols = len(matrix)
-    rows = len(matrix[0])
-
-    if j > 0:
-        adjacent.append((i, j - 1))
-    else:
-        adjacent.append(None)
-
-    if cols - 1 > i:
-        adjacent.append((i + 1, j))
-    else:
-        adjacent.append(None)
-
-    if rows - 1 > j:
-        adjacent.append((i, j + 1))
-    else:
-        adjacent.append(None)
-
-    if i > 0:
-        adjacent.append((i - 1, j))
-    else:
-        adjacent.append(None)
-
-    return adjacent
+def action_to_pos(a, i, j):
+    if a == 0:
+        return i - 1, j
+    elif a == 1:
+        return i, j + 1
+    elif a == 2:
+        return i + 1, j
+    elif a == 3:
+        return i, j - 1
 
 
-def minus(matrix):
-    new_matrix = []
-    for row in matrix:
-        new_row = [1/i for i in row]
-        new_matrix.append(new_row)
+def create_Q(grid, potentials):
 
-    return new_matrix
+    Q = [[[0, 0, 0, 0] for i in range(grid.cols)] for j in range(grid.rows)]
 
-
-def create_Q_matrix(apf_matrix):
-    Q = []
-    temp = apf_matrix
-    for i in range(len(apf_matrix)):
-        row = []
-        for j in range(len(apf_matrix[0])):
-            Q_case = []
-            for adjacent in adjacent_cases(apf_matrix, i, j):
-                if adjacent is None:
-                    Q_case.append(-float("inf"))
+    for i in range(grid.rows):
+        for j in range(grid.cols):
+            if not grid.is_empty(i, j) and not grid.is_target(i, j):
+                continue
+            for a in range(4):
+                ni, nj = action_to_pos(a, i, j)
+                if (ni, nj) in grid.action_list(i, j):
+                    pot = potentials[ni][nj]
+                    Q[i][j][a] = 1 / (pot + 1e-6)
                 else:
-                    Q_case.append(temp[adjacent[0]][adjacent[1]])
-            row.append(Q_case)
-        Q.append(row)
+                    Q[i][j][a] = -(grid.rows*grid.cols + 1)
     return Q
