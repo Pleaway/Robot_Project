@@ -30,9 +30,12 @@ def step(action, i, j, grid=Grid()):
     return i, j, grid.get_value(i, j)
 
 
-def training(grid=Grid(), num_training=10000, alpha=0.1, gamma=0.9, epsilon=1, epsilon_min=0, epsilon_decay=0.995, stats=False):
+def training(grid=Grid(), num_training=10000, alpha=0.1, gamma=0.9, epsilon=1, epsilon_min=0, epsilon_decay=0.995, stats=False, init_matrix=None):
     target = grid.end
-    Q = [[[0, 0, 0, 0] for i in range(grid.cols)] for j in range(grid.rows)]
+    if init_matrix is None:
+        Q = [[[0, 0, 0, 0] for i in range(grid.cols)] for j in range(grid.rows)]
+    else:
+        Q = init_matrix
     length_list = []
     for phase in range(num_training):
         state = grid.start
@@ -60,11 +63,14 @@ def training(grid=Grid(), num_training=10000, alpha=0.1, gamma=0.9, epsilon=1, e
                 print(round(phase/num_training*100, 1), "%", end='')
     print('\r 100 %', end='')
 
+    if init_matrix is None:
+        grid.Q = Q
+    else:
+        grid.Qapf = Q
 
-    grid.Q = Q
     if stats:
         return Q, length_list
-    else :
+    else:
         return Q
 
 

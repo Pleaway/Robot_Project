@@ -29,7 +29,7 @@ def adjacent_cases(matrix, i, j):
 def minus(matrix):
     new_matrix = []
     for row in matrix:
-        new_row = [-i for i in row]
+        new_row = [1/i for i in row]
         new_matrix.append(new_row)
 
     return new_matrix
@@ -37,7 +37,7 @@ def minus(matrix):
 
 def create_Q_matrix(apf_matrix):
     Q = []
-    temp = minus(apf_matrix)
+    temp = apf_matrix
     for i in range(len(apf_matrix)):
         row = []
         for j in range(len(apf_matrix[0])):

@@ -4,7 +4,7 @@ from Algorithms.APF import build_potentials_list, find_adjacent_lowest
 
 
 class Grid:
-    def __init__(self, rows=50, cols=50, proba=0.2, apf_param=False, Q=None):
+    def __init__(self, rows=50, cols=50, proba=0.2, apf_param=False, Q=None, Qapf=None):
         ''' Arguments ---
             rows, cols : nb of rows/cols ;
             proba : probability of obstacles if no grid given ;
@@ -16,6 +16,7 @@ class Grid:
         self.grid = [[-1 for i in range(cols)] for j in range(rows)]
         self.init_grid()
         self.Q = Q
+        self.Qapf = Qapf
         self.apf_param = apf_param
         if apf_param:
             self.potentials, self.min_val, self.max_val = build_potentials_list(self, *apf_param)

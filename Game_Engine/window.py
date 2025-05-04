@@ -48,7 +48,9 @@ class Window(QWidget):
         self.draw_obstacles(painter)
         self.draw_grid(painter)
         if self.grid.Q is not None:
-            self.draw_Qlearn_path(painter)
+            self.draw_Qlearn_path(painter, id=0)
+        if self.grid.Qapf is not None:
+            self.draw_Qlearn_path(painter, color=(240, 240, 50, 255), id=1)
         if self.grid.apf_param:
             self.draw_APF_path(painter)
         self.draw_agent(painter)
@@ -108,24 +110,33 @@ class Window(QWidget):
                 painter.setPen(Qt.GlobalColor.transparent)
                 painter.drawRect(i * self.cell_size, j * self.cell_size, self.cell_size, self.cell_size)
 
-    def draw_Qlearn_path(self, painter, color=(240, 120, 50, 255)):
-        painter.setBrush(QBrush(QColor(*color), Qt.BrushStyle.SolidPattern))
-        painter.setPen(QColor(*color))
+    def draw_Qlearn_path(self, painter, color=(240, 120, 50, 255), id=0):
         state = self.grid.start
         row = state[0]
         col = state[1]
+        if id == 0:
+            Q = self.grid.Q
+            vert_offset = 1
+        elif id == 1:
+            Q = self.grid.Qapf
+            vert_offset = 3
+
+        painter.setBrush(QBrush(QColor(*color), Qt.BrushStyle.SolidPattern))
+        painter.setPen(QColor(*color))
         target = self.grid.end
-        while state != target:
+        limit = 0
+        while state != target and limit < self.grid.rows * self.grid.cols:
             print(state)
             painter.drawRect(
-                row * self.cell_size + self.cell_size//5, col * self.cell_size + self.cell_size//5,
+                row * self.cell_size + self.cell_size//5, col * self.cell_size + vert_offset*self.cell_size//5,
                 self.cell_size//5, self.cell_size//5
             )
-            data = argmax(self.grid.Q[state[0]][state[1]])
+            data = argmax(Q[state[0]][state[1]])
             new_state = action_to_pos(data, state[0], state[1])
             row = new_state[0]
             col = new_state[1]
             state = new_state
+            limit += 1
         self.agent.row = target[0]
         self.agent.col = target[1]
 
