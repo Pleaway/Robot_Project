@@ -64,10 +64,9 @@ def find_adjacent_lowest(grid, i, j):
     return min_pot, neighbours[pot_list.index(min_pot)]
 
 def create_Q(grid, crit_dist_att=1, crit_dist_rep=1, w_att=10, w_rep=1):
-    potentials, _, _ = build_potentials_list(grid, crit_dist_att, crit_dist_rep, w_att, w_rep)
-
+    potentials, min_pot, max_pot = build_potentials_list(grid, crit_dist_att, crit_dist_rep, w_att, w_rep)
+    #grid.potentials = potentials
     Q = [[[0, 0, 0, 0] for i in range(grid.cols)] for j in range(grid.rows)]
-
     for i in range(grid.rows):
         for j in range(grid.cols):
             if not grid.is_empty(i, j) and not grid.is_target(i, j):
@@ -76,7 +75,10 @@ def create_Q(grid, crit_dist_att=1, crit_dist_rep=1, w_att=10, w_rep=1):
                 ni, nj = action_to_pos(a, i, j)
                 if (ni, nj) in grid.action_list(i, j):
                     pot = potentials[ni][nj]
-                    Q[i][j][a] = 1 / (pot + 1e-6)
+                    range_pot = max(max_pot - min_pot, 1e-3)
+                    norm_val = (max_pot - pot) / range_pot
+                    norm_val = max(0.0, min(1.0, norm_val))
+                    Q[i][j][a] = norm_val
                 else:
                     Q[i][j][a] = -(grid.rows*grid.cols + 1)
     return Q

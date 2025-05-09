@@ -15,7 +15,7 @@ APF = (1, 3, 3, 1)
 G = Grid(rows=20, cols=20, apf_param=APF, proba=0.2)
 
 #la matrice Q de l'APF
-Q_APF = create_Q(G)
+Q_APF = create_Q(G, APF[0], APF[1], APF[2], APF[3])
 
 # Create the Q matrix with Q learning (faut mettre None dans Q_learn pour ne pas avoir la fusion)
 Q = training(grid=G, Q_learn = Q_APF)
