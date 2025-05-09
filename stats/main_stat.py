@@ -1,3 +1,7 @@
+import sys
+from PyQt6.QtWidgets import QApplication
+from Game_Engine.window import Window
+
 from Algorithms.Q_learning import training
 from Algorithms.APF import create_Q
 from Game_Engine.grid import Grid
@@ -7,6 +11,11 @@ from matplotlib.lines import Line2D
 
 def comparison(rows=100, cols=100, nb_training=25000, alphas=[0.1], gammas=[0.9], min_length=75):
     G = Grid(rows=100, cols=100, proba=0.2)
+
+    app = QApplication(sys.argv)
+    window = Window(grid=G, cell_size=10)
+    window.show()
+    app.exec()
 
     for alpha in alphas:
         for gamma in gammas:
@@ -73,7 +82,7 @@ markers = ['o', 'x', 's', '^']
 gammas = [0.7, 0.9, 0.99]
 colors = ['r', 'g', 'b']
 
-comparison(alphas=alphas, gammas=gammas)
+# comparison(alphas=alphas, gammas=gammas)
 
 
 def comparison_apf(rows=100, cols=100, nb_training=2500, alpha=0.9, gamma=0.999, min_length=100):
@@ -92,7 +101,7 @@ def comparison_apf(rows=100, cols=100, nb_training=2500, alpha=0.9, gamma=0.999,
     G.apf_add(APF)
     Q_APF = create_Q(G, APF[0], APF[1], APF[2], APF[3])
     print(f'\r Comparaison Q-Learning x APF :      ', end='')
-    step_list_, reward_list_ = training(grid=G, num_training=nb_training, stats=True, alpha=alpha, gamma=gamma, init_matrix=Q_APF)
+    step_list_, reward_list_ = training(grid=G, num_training=nb_training, stats=True, alpha=alpha, gamma=gamma, Q_learn=Q_APF)
 
     x = []
     y = []
@@ -145,5 +154,11 @@ def comparison_apf(rows=100, cols=100, nb_training=2500, alpha=0.9, gamma=0.999,
     plt.tight_layout()
     plt.legend()
     plt.show()
+
+
+    app = QApplication(sys.argv)
+    window = Window(grid=G, cell_size=10)
+    window.show()
+    sys.exit(app.exec())
 
 comparison_apf()
