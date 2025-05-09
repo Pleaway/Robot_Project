@@ -17,6 +17,7 @@ def comparison(rows=100, cols=100, nb_training=25000, alphas=[0.1], gammas=[0.9]
             if step_list[-1] < min_length:
                 print(f'\r Redémarrage, longueur insuffisante ({step_list[-1]})')
                 comparison(rows, cols, nb_training, alphas, gammas, min_length)
+                exit()
 
             x = []
             y = []
