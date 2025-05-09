@@ -85,3 +85,6 @@ class Grid:
 
     def next_apf_move(self, i, j):
         return find_adjacent_lowest(self, i, j)
+
+    def apf_add(self, apf_param):
+        self.potentials, self.min_val, self.max_val = build_potentials_list(self, *apf_param)
