@@ -37,9 +37,11 @@ def training(grid=Grid(), num_training=10000, alpha=0.1, gamma=0.9, epsilon=1, e
     else:
         Q = init_matrix
     length_list = []
+    reward_list = []
     for phase in range(num_training):
         state = grid.start
         steps = 0
+        reward_sum = 0
 
         while state != target:
             action = choose_action(Q, epsilon, state[0], state[1])
@@ -50,18 +52,21 @@ def training(grid=Grid(), num_training=10000, alpha=0.1, gamma=0.9, epsilon=1, e
 
             state = (i, j)
             steps+=1
+            reward_sum += reward
 
         epsilon = max(epsilon_min, epsilon * epsilon_decay)
 
         if stats:
             length_list.append(steps)
+            reward_list.append(reward_sum)
             if phase % (num_training/100) == 0:
                 if round(phase/num_training*100, 1) < 11:
                     print('\b'*5, end='')
                 else:
                     print('\b'*6, end='')
                 print(round(phase/num_training*100, 1), "%", end='')
-    print('\r 100 %', end='')
+    if stats:
+        print('\r 100 %', end='')
 
     if init_matrix is None:
         grid.Q = Q
@@ -69,7 +74,7 @@ def training(grid=Grid(), num_training=10000, alpha=0.1, gamma=0.9, epsilon=1, e
         grid.Qapf = Q
 
     if stats:
-        return Q, length_list
+        return length_list, reward_list
     else:
         return Q
 
