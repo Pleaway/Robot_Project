@@ -72,16 +72,16 @@ class Grid:
     def distance(self, q1, q2):
         return sqrt((q1[0]-q2[0])**2 + (q1[1]-q2[1])**2)
 
-    def closest_obstacle_distance(self, i_q, j_q):
-        q = (i_q, j_q)
-        min_dist = inf
-        for i in range(self.rows):
-            for j in range(self.cols):
-                if not self.is_empty(i, j) and not self.is_target(i, j):
-                    d = self.distance(q, (i, j))
-                    if d < min_dist:
-                        min_dist = d
-        return min_dist
+    def closest_obstacle_distance(self, i, j):
+        k = 1
+        while k <= self.rows//2 and k <= self.cols//2:
+            for i in range(-k, k + 1):
+                j = k - abs(i)
+                if not(self.is_empty(i, j) and self.is_empty(i, -j)):
+                    return k
+            k += 1
+
+        return k
 
     def next_apf_move(self, i, j):
         return find_adjacent_lowest(self, i, j)
