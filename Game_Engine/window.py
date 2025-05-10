@@ -116,7 +116,6 @@ class Window(QWidget):
         col = state[1]
         target = self.grid.end
         while state != target:
-            print(state)
             painter.drawRect(
                 row * self.cell_size + self.cell_size//5, col * self.cell_size + self.cell_size//5,
                 self.cell_size//5, self.cell_size//5
